@@ -1,0 +1,149 @@
+Coordenadas generalizadas
+(th1(t), th2(t), th3(t))
+
+Velocidades generalizadas
+/  d          d          d        \
+| -- th1(t), -- th2(t), -- th3(t) |
+\ dt         dt         dt        /
+
+Matriz de Transformación local A1
+/ cos(th1(t)), -sin(th1(t)), 0, l1 cos(th1(t)) \
+|                                              |
+| sin(th1(t)),  cos(th1(t)), 0, l1 sin(th1(t)) |
+|                                              |
+|      0,            0,      1,        0       |
+|                                              |
+\      0,            0,      0,        1       /
+
+Matriz de Transformación global T1
+/ cos(th1(t)), -sin(th1(t)), 0, l1 cos(th1(t)) \
+|                                              |
+| sin(th1(t)),  cos(th1(t)), 0, l1 sin(th1(t)) |
+|                                              |
+|      0,            0,      1,        0       |
+|                                              |
+\      0,            0,      0,        1       /
+
+Matriz de Transformación local A2
+/ cos(th2(t)), -sin(th2(t)), 0, l2 cos(th2(t)) \
+|                                              |
+| sin(th2(t)),  cos(th2(t)), 0, l2 sin(th2(t)) |
+|                                              |
+|      0,            0,      1,        0       |
+|                                              |
+\      0,            0,      0,        1       /
+
+Matriz de Transformación global T2
+/ #2, -#1, 0, l1 cos(th1(t)) + l2 #2 \
+|                                    |
+| #1,  #2, 0, l1 sin(th1(t)) + l2 #1 |
+|                                    |
+|  0,  0,  1,            0           |
+|                                    |
+\  0,  0,  0,            1           /
+
+where
+
+   #1 == sin(th1(t) + th2(t))
+
+   #2 == cos(th1(t) + th2(t))
+
+
+Matriz de Transformación local A3
+/ cos(th3(t)), -sin(th3(t)), 0, l3 cos(th3(t)) \
+|                                              |
+| sin(th3(t)),  cos(th3(t)), 0, l3 sin(th3(t)) |
+|                                              |
+|      0,            0,      1,        0       |
+|                                              |
+\      0,            0,      0,        1       /
+
+Matriz de Transformación global T3
+/ #2, -#1, 0, l1 cos(th1(t)) + l3 #2 + l2 cos(th1(t) + th2(t)) \
+|                                                              |
+| #1,  #2, 0, l1 sin(th1(t)) + l3 #1 + l2 sin(th1(t) + th2(t)) |
+|                                                              |
+|  0,  0,  1,                         0                        |
+|                                                              |
+\  0,  0,  0,                         1                        /
+
+where
+
+   #1 == sin(th1(t) + th2(t) + th3(t))
+
+   #2 == cos(th1(t) + th2(t) + th3(t))
+
+
+Jacobiano lineal obtenido de forma diferencial
+/ - l1 sin(th1(t)) - #1 - l2 sin(th1(t) + th2(t)), - #1 - l2 sin(th1(t) + th2(t)), -#1 \
+|                                                                                      |
+|  l1 cos(th1(t)) + #2 + l2 cos(th1(t) + th2(t)),   #2 + l2 cos(th1(t) + th2(t)),   #2 |
+|                                                                                      |
+\                        0,                                       0,                0  /
+
+where
+
+   #1 == l3 sin(th1(t) + th2(t) + th3(t))
+
+   #2 == l3 cos(th1(t) + th2(t) + th3(t))
+
+
+Jacobiano lineal obtenido de forma analítica
+/ - l1 sin(th1(t)) - #1 - l2 sin(th1(t) + th2(t)), - #1 - l2 sin(th1(t) + th2(t)), -#1 \
+|                                                                                      |
+|  l1 cos(th1(t)) + #2 + l2 cos(th1(t) + th2(t)),   #2 + l2 cos(th1(t) + th2(t)),   #2 |
+|                                                                                      |
+\                        0,                                       0,                0  /
+
+where
+
+   #1 == l3 sin(th1(t) + th2(t) + th3(t))
+
+   #2 == l3 cos(th1(t) + th2(t) + th3(t))
+
+
+Jacobiano ángular obtenido de forma analítica
+/ 0, 0, 0 \
+|         |
+| 0, 0, 0 |
+|         |
+\ 1, 1, 1 /
+
+Velocidad lineal obtenida mediante el Jacobiano lineal
+/ - #4 (l3 sin(#1) + l2 sin(#2)) - #5 (l1 sin(th1(t)) + l3 sin(#1) + l2 sin(#2)) - l3 #3 sin(#1) \
+|                                                                                                |
+|  #4 (l3 cos(#1) + l2 cos(#2)) + #5 (l1 cos(th1(t)) + l3 cos(#1) + l2 cos(#2)) + l3 #3 cos(#1)  |
+|                                                                                                |
+\                                                0                                               /
+
+where
+
+   #1 == th1(t) + th2(t) + th3(t)
+
+   #2 == th1(t) + th2(t)
+
+         _________
+          d
+   #3 == -- th3(t)
+         dt
+
+         _________
+          d
+   #4 == -- th2(t)
+         dt
+
+         _________
+          d
+   #5 == -- th1(t)
+         dt
+
+
+Velocidad angular obtenida mediante el Jacobiano angular
+/                 0                 \
+|                                   |
+|                 0                 |
+|                                   |
+| _________   _________   _________ |
+|  d           d           d        |
+| -- th1(t) + -- th2(t) + -- th3(t) |
+\ dt          dt          dt        /
